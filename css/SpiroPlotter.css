@@ -1,0 +1,28 @@
+
+#canvasFrame {
+    position:absolute;
+    left: 0; top: 0;
+	border:  solid 1px black;
+	z-index:0;
+	background: black;
+}
+
+#canvasBack {
+	position:absolute;
+    left: 0; top: 0;
+	border: solid 1px black;
+    background-color: white;
+	z-index: 1;
+}
+#canvasShape{
+	position:absolute;
+    left: 0; top: 0;
+	border: solid 1px black;
+	z-index:2;
+}
+#canvasMoving {
+	position:absolute;
+    left: 0; top: 0;
+	border: solid 1px black;
+	z-index:3;
+}

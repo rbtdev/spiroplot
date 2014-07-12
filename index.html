@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link rel="stylesheet" type="text/css" href="./css/phone.css" />
+        <link rel="stylesheet" type="text/css" href="./css/spirograph.css" />
+        <link rel="stylesheet" type="text/css" href="./css/SpiroPlotter.css" />
+		<link rel="stylesheet" type="text/css" href="./css/RotaryDial.css" />
+        <script  src="./javascript/SpiroGraph.js"></script>
+        <script  src="./javascript/SpiroPlotter.js"></script>
+        <script  src="./javascript/SpiroPlotterArms.js"></script>
+		<script  src="./javascript/RotaryDial.js"></script>
+ 
+        <title>Spiro Plotter</title>
+    </head>
+    <body>
+        <div id ="canvasContainer" style = "float:left">
+            <canvas id ="canvasShape"> </canvas>
+            <canvas id ="canvasMoving"></canvas>
+            <canvas id ="canvasBack"></canvas>
+            <!--<canvas id ="canvasFrame"></canvas> -->
+        </div>
+		<div id = "controls">
+			<div id = "speedControls" style = "float:left">
+				<div id = "masterSpeed" style = "float:left"></div>
+				<div id = "arm2Speed" style = "float:left"></div>
+				<div id = "arm3Speed" style = "float:left"></div>
+			<div>
+			<div id = "lengthControls" style = "float:left">
+				
+				<div id = "arm2Length" style = "float:left"></div>
+				<div id = "arm3Length" style = "float:left"></div>
+			<div>
+			<div id = "options" style = "margin-left: 40px; margin-top: 30px; float:left">
+				Pen Type
+				<select onchange= Spirograph.selectPenType(this)>
+					<option value="pencil">Pencil</option>
+					<option value="round" selected>Brush</option>
+					<option value="angle">Calligraphy</option>
+				</select>
+				Color
+				<select onchange= Spirograph.selectPenColor(this)>
+					<option value="gradient" selected>Rainbow</option>
+					<option value="black">Black</option>
+				</select>
+			<div>
+			<div id = "controlButtons" style = "float:left">
+				<button style = "margin:50px; margin-top:75px;  width: 100px; height: 50px", onclick = Spirograph.start()>Start</button>
+				<button style = "margin:50px; margin-top:75px;  width: 100px; height: 50px", onclick = Spirograph.saveImage()>Save</button>
+			</div>
+		</div>
+    </body>
+    <script>
+		new RotaryDial("Drawing Speed","masterSpeed", "speedDial", 1, 500, 200, Spirograph.dialChanging.bind(Spirograph),null);
+		new RotaryDial("Arm 2 Speed","arm2Speed","arm2SpeedDial",-40, 40,200, Spirograph.dialChanging.bind(Spirograph),null);
+		new RotaryDial("Arm 3 Speed", "arm3Speed","arm3SpeedDial", -40,40, 200, Spirograph.dialChanging.bind(Spirograph),null);
+		new RotaryDial("Arm 2 Length", "arm2Length","arm2LengthDial" ,0, 4,200, Spirograph.dialChanging.bind(Spirograph), null);
+		new RotaryDial("Arm 3 Length", "arm3Length","arm3LengthDial", 0, 4,200, Spirograph.dialChanging.bind(Spirograph),null);
+		Spirograph.create("canvasContainer");
+
+        //Spirograph.start();
+    </script>
+</html>

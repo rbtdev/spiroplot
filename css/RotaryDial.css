@@ -1,0 +1,19 @@
+.dialFrame {
+	z-index:0;
+	/*background: black;*/
+}
+
+.dialBack {
+	position:absolute;
+	z-index: 1;
+	
+}
+.dialShape{
+	position:absolute;
+	z-index:2;
+	/*background-image: url('../images/dial.png');*/
+}
+.dialMoving {
+	position:absolute;
+	z-index:3;
+}

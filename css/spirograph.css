@@ -1,0 +1,48 @@
+
+.mainView {
+	margin: 0px;
+	font-size: xx-small;
+}
+
+.controlPanel {
+	margin: 10px;
+}
+
+.controlButtons {
+	margin-top: 20px;
+}
+
+.dial {
+	border: solid 1px gray;
+	font-size: small;
+}
+
+#canvasContainer {
+    position: relative;
+	
+}
+
+#controlContainer {
+    position: relative;
+}
+
+.valueContainer {
+    
+    float:left;
+    padding:10px;
+}
+
+#buttonContainer {
+    clear: both;
+}
+
+ul
+{
+list-style-type: none;
+padding: 0px;
+margin: 0px;
+}
+
+input {
+    width: 5em;
+}
