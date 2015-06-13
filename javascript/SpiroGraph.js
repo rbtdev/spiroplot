@@ -172,8 +172,7 @@ var Spirograph = {
 		this.initializeSpiro();
 		console.log("Spiro Ready.");
 	},
-	
-	
+
 	dragging: function (drag) {
 	
 		switch (drag.arm) {

@@ -1,20 +1,4 @@
-//enyo.kind({
-    //	name: "RBTDev.RotaryDial",
-    //	kind: "VFlexBox",
-    //	align: "start", pack: "start",
-    //	events: {
-    //		onReady:"",
-    //		onChanging:"",
-    //		onChanged:""
-    //			},
-    //	components: [
-    //		{kind: "HFlexBox", pack:"center", align:"center", components: [
-    //			{name: "canvasShape", nodeTag: "canvas", className: "dialShape", kind: "Control", content:""},
-    //			{name: "canvasMoving",  nodeTag: "canvas", className: "dialMoving", kind: "Control", content:"", onmousedown:"canvasMouseDown", onmousemove: "canvasDrag", onclick: "canvasClick"},
-    //			{name: "canvasBack", nodeTag: "canvas", className: "dialBack", kind: "Control", content:""},
-    //			{name: "canvasFrame", nodeTag: "canvas", className: "dialFrame", kind: "Control", content:""}
-    //		]}
-    //	],
+
 
 function RotaryDial(title,parent,name, min,max,onChanging, onChanged)
 {
