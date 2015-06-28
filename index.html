@@ -44,6 +44,12 @@
 					<option value="gradient" selected>Rainbow</option>
 					<option value="black">Black</option>
 				</select>
+				Complexity
+				<select onchange= setComplexity(this.value)>
+					<option value=0 selected>Low</option>
+					<option value=1>Medium</option>
+					<option value=2>High</option>
+				</select>
 			<div>
 			<div id = "controlButtons" style = "float:left">
 				<button style = "margin:50px; margin-top:75px;  width: 100px; height: 50px", onclick = Spirograph.start()>Start</button>
@@ -52,13 +58,17 @@
 		</div>
     </body>
     <script>
-		new RotaryDial("Drawing Speed","masterSpeed", "speedDial", 1, 500, 200, Spirograph.dialChanging.bind(Spirograph),null);
-		new RotaryDial("Arm 2 Speed","arm2Speed","arm2SpeedDial",-40, 40,200, Spirograph.dialChanging.bind(Spirograph),null);
-		new RotaryDial("Arm 3 Speed", "arm3Speed","arm3SpeedDial", -40,40, 200, Spirograph.dialChanging.bind(Spirograph),null);
-		new RotaryDial("Arm 2 Length", "arm2Length","arm2LengthDial" ,0, 4,200, Spirograph.dialChanging.bind(Spirograph), null);
-		new RotaryDial("Arm 3 Length", "arm3Length","arm3LengthDial", 0, 4,200, Spirograph.dialChanging.bind(Spirograph),null);
+    	var masterSpeed = new RotaryDial("Drawing Speed","masterSpeed", "speedDial", 1, 500, 0, 200, Spirograph.dialChanging.bind(Spirograph),null);
+		var arm2Speed = new RotaryDial("Arm 2 Speed","arm2Speed","arm2SpeedDial",-40, 40, 0, 200, Spirograph.dialChanging.bind(Spirograph),null);
+		var arm3Speed = new RotaryDial("Arm 3 Speed", "arm3Speed","arm3SpeedDial", -40, 40, 0, 200, Spirograph.dialChanging.bind(Spirograph),null);
+		var arm2Length = new RotaryDial("Arm 2 Length", "arm2Length","arm2LengthDial" ,0, 4, 2,200, Spirograph.dialChanging.bind(Spirograph), null);
+		var arm3Length = new RotaryDial("Arm 3 Length", "arm3Length","arm3LengthDial", 0, 4, 2,200, Spirograph.dialChanging.bind(Spirograph),null);
 		Spirograph.create("canvasContainer");
 
+		var setComplexity = function (complexity) {
+			arm2Speed.setStep(complexity);
+			arm3Speed.setStep(complexity);
+		};
         //Spirograph.start();
     </script>
 </html>

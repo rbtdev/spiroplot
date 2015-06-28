@@ -20,9 +20,8 @@ var Spirograph = {
         this.arm3Length = .25;
         this.penType = "round";
 		this.penColor = "gradient";
-
-
-        this.spiro =  SpiroPlotter;
+		this.complexity = 1;
+		this.spiro =  SpiroPlotter;
         this.spiro.create(this.width, this.height, this.spiroReady, this.dragging, this.spiroDone);
         this.initialize();
         this.spiroReady();
@@ -43,6 +42,11 @@ var Spirograph = {
 		this.setPenColor(penColorList.value);
 	},
 	
+	selectComplexity: function (complexity) {
+		this.complexity = complexity;
+		this.spiro.refresh();
+	},
+
 	dialChanging: function (object) {
 		
 		// console.log("dial Changed:" + value);
@@ -63,11 +67,11 @@ var Spirograph = {
 				restart = true;
 			break;
 			case "arm2SpeedDial":
-				this.setArm2Speed(Math.round(object.value*1000)/1000);
+				this.setArm2Speed(object.value);
 				restart=true;
 			break;
 			case "arm3SpeedDial":
-				this.setArm3Speed(Math.round(object.value*1000)/1000);
+				this.setArm3Speed(object.value);
 				restart=true;
 			break;
 			case "arm2LengthDial":

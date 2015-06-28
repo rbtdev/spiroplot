@@ -1,17 +1,18 @@
 
 
-function RotaryDial(title,parent,name, min,max,onChanging, onChanged)
+function RotaryDial(title,parent,name, min,max, step, size, onChanging, onChanged)
 {
-	this.create(title, parent, name, min, max, onChanging, onChanged);
+	this.create(title, parent, name, min, max, step, size, onChanging, onChanged);
 	
 };
 
-RotaryDial.prototype.create = function(title,parent,name,min, max,size,onChanging, onChanged) {
+RotaryDial.prototype.create = function(title,parent,name,min, max, step,size,onChanging, onChanged) {
 		this.title = title;
 		this.name = name;
 		this.minimum = min;
 		this.maximum = max;
 		this.size = size;
+        this.digits = step;
 		this.parentDiv = document.getElementById(parent);
 		this.doChanging = onChanging;
 		this.doChanged = onChanged;
@@ -86,7 +87,11 @@ RotaryDial.prototype.initCanvas = function () {
 			this.drawDial({x:0, y:0}, 100);
 		}
 	};
-	
+
+RotaryDial.prototype.setStep = function (step) {
+    this.digits = step;
+};
+
 RotaryDial.prototype.drawDial = function (center, radius) {
     // console.log("DrawDial: rotation = " + this.grabPoint.rotation);
     this.gMoving.clearRect(0,0,this.canvasWidth,this.canvasHeight);
@@ -151,7 +156,7 @@ RotaryDial.prototype.drawDial = function (center, radius) {
 	// text
 	this.gMoving.font="12px Arial";
 	this.gMoving.fillStyle = "black";
-	var text ="" + Math.round(this.value*100)/100;
+	var text ="" + this.value;
 	var metrics = this.gMoving.measureText(text);
     var offset = metrics.width/2;
 	this.gMoving.fillText(text, lcenter.x-offset, lcenter.y+0.2*this.height);
@@ -242,7 +247,9 @@ RotaryDial.prototype.moveDial = function (dx, dy) {
         this.grabPoint = this.moveGrabPoint(currentPoint);
         if (this.value != this.grabPoint.value) {
             this.value = this.grabPoint.value;
-            if (this.doChanging != null) this.doChanging(this);
+            if (this.doChanging != null) {
+                this.doChanging(this);
+            } 
         }
     }
 };
@@ -298,7 +305,10 @@ RotaryDial.prototype.dialValue = function (rotation) {
     var normalized = (this.minPosition - rotation+(Math.PI*2))%(Math.PI*2);
     // console.log("Value Range: " + valueRange);
     var scaled = (normalized/this.dialRange)*valueRange + this.minimum
-    // console.log("Scaled Value: " + scaled);
+    if (this.digits !== null) {
+        console.log("step = " + this.digits)
+        scaled = parseFloat(scaled.toFixed(this.digits));
+    }
     return scaled;
 };
 	
