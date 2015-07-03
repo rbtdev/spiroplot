@@ -58,12 +58,13 @@
 		</div>
     </body>
     <script>
-    	var masterSpeed = new RotaryDial("Drawing Speed","masterSpeed", "speedDial", 1, 500, 0, 200, Spirograph.dialChanging.bind(Spirograph),null);
-		var arm2Speed = new RotaryDial("Arm 2 Speed","arm2Speed","arm2SpeedDial",-40, 40, 0, 200, Spirograph.dialChanging.bind(Spirograph),null);
-		var arm3Speed = new RotaryDial("Arm 3 Speed", "arm3Speed","arm3SpeedDial", -40, 40, 0, 200, Spirograph.dialChanging.bind(Spirograph),null);
-		var arm2Length = new RotaryDial("Arm 2 Length", "arm2Length","arm2LengthDial" ,0, 4, 2,200, Spirograph.dialChanging.bind(Spirograph), null);
-		var arm3Length = new RotaryDial("Arm 3 Length", "arm3Length","arm3LengthDial", 0, 4, 2,200, Spirograph.dialChanging.bind(Spirograph),null);
-		Spirograph.create("canvasContainer");
+    	var dialSize = 150;
+    	var masterSpeed = new RotaryDial("Drawing Speed","masterSpeed", "speedDial", 1, 500, 0, dialSize, Spirograph.dialChanging.bind(Spirograph),null);
+		var arm2Speed = new RotaryDial("Arm 2 Speed","arm2Speed","arm2SpeedDial",-40, 40, 0, dialSize, Spirograph.dialChanging.bind(Spirograph),null);
+		var arm3Speed = new RotaryDial("Arm 3 Speed", "arm3Speed","arm3SpeedDial", -40, 40, 0, dialSize, Spirograph.dialChanging.bind(Spirograph),null);
+		var arm2Length = new RotaryDial("Arm 2 Length", "arm2Length","arm2LengthDial" ,0, 4, 2,dialSize, Spirograph.dialChanging.bind(Spirograph), null);
+		var arm3Length = new RotaryDial("Arm 3 Length", "arm3Length","arm3LengthDial", 0, 4, 2,dialSize, Spirograph.dialChanging.bind(Spirograph),null);
+		Spirograph.create("canvasContainer", 500, 500);
 
 		var setComplexity = function (complexity) {
 			arm2Speed.setStep(complexity);

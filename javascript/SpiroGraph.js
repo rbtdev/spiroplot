@@ -7,9 +7,9 @@
 
 var Spirograph = {
 
-    create: function (divName) {
-        this.width = 600;
-        this.height = 600;
+    create: function (divName, height, width) {
+        this.width = width;
+        this.height = height;
         document.getElementById(divName).style.width = ""+this.width+"px";
         document.getElementById(divName).style.height = "" + this.height + "px";
         this.masterSpeed = 20;
