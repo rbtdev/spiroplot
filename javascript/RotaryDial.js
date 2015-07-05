@@ -161,12 +161,12 @@ RotaryDial.prototype.drawDial = function (center, radius) {
     var offset = metrics.width/2;
 	this.gMoving.fillText(text, lcenter.x-offset, lcenter.y+0.2*this.height);
 	
-	this.gMoving.fillStyle = "white";
-	this.gMoving.font = "" + Math.round(this.size)/10 + "px Arial";
-	text = this.title;
-	metrics = this.gMoving.measureText(text);
-	offset = metrics.width/2;
-	this.gMoving.fillText(text, lcenter.x-offset, this.height-10);
+	// this.gMoving.fillStyle = "white";
+	// this.gMoving.font = "" + Math.round(this.size)/10 + "px Arial";
+	// text = this.title;
+	// metrics = this.gMoving.measureText(text);
+	// offset = metrics.width/2;
+	// this.gMoving.fillText(text, lcenter.x-offset, this.height-10);
 };
 	
 	

@@ -24,7 +24,6 @@ html, body {
     width: 100%;
     margin: 0px;
     padding: 0px;
-
 }
 
 body {
@@ -34,7 +33,7 @@ body {
     background-color: #ffffff;
     background-image: url('../images/metal-textures-4.jpg');
     background-size: cover;
-    color: #000000;
+    color: black;
     margin-left: 0px;
 }
 
@@ -46,10 +45,5 @@ body {
     font-size: 24pt;
 }
 
-select {
-    border-radius: 4px;
-    border: none;
-    background-color: gray;
-}
 
 

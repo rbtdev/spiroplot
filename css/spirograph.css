@@ -1,4 +1,14 @@
 
+select {
+    border-radius: 4px;
+    border: none;
+    background-color: gray;
+}
+
+div {
+	user-select: none;
+    -webkit-user-select: none;
+}
 .mainView {
 	margin: 0px;
 	font-size: xx-small;
