@@ -30,8 +30,8 @@ body {
     font-size: 11pt;
     font-family: "Segoe WP";
     letter-spacing: 0.02em;
-    background-color: #ffffff;
-    background-image: url('../images/metal-textures-4.jpg');
+    background-color: #eeeeee;
+    /* background-image: url('../images/metal-textures-4.jpg'); */
     background-size: cover;
     color: black;
     margin-left: 0px;

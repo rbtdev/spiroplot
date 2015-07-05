@@ -1,10 +1,4 @@
 
-select {
-    border-radius: 4px;
-    border: none;
-    background-color: gray;
-}
-
 div {
 	user-select: none;
     -webkit-user-select: none;
@@ -14,8 +8,9 @@ div {
 	font-size: xx-small;
 }
 
-.controlPanel {
-	margin: 10px;
+#controlPanel {
+	margin: 20px;
+	float: left;
 }
 
 .controlButtons {
