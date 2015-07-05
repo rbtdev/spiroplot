@@ -2,8 +2,12 @@
 
 function RotaryDial(title,parent,name, min,max, step, size, onChanging, onChanged)
 {
-	this.create(title, parent, name, min, max, step, size, onChanging, onChanged);
-	
+    var _this = this;
+    this.dialImage = new Image();
+    this.dialImage.onload = function () {
+        _this.create(title, parent, name, min, max, step, size, onChanging, onChanged);
+    }
+    this.dialImage.src = "./images/knob.png";
 };
 
 RotaryDial.prototype.create = function(title,parent,name,min, max, step,size,onChanging, onChanged) {
@@ -13,9 +17,11 @@ RotaryDial.prototype.create = function(title,parent,name,min, max, step,size,onC
 		this.maximum = max;
 		this.size = size;
         this.digits = step;
+        this.rotation = 0;
 		this.parentDiv = document.getElementById(parent);
 		this.doChanging = onChanging;
 		this.doChanged = onChanged;
+        
 		this.initialized = false;
 		this.initCanvas();
 	};
@@ -84,7 +90,9 @@ RotaryDial.prototype.initCanvas = function () {
 			this.setBounds(-100, 100, -100, 100, 1);
 			this.rotationStop = false;
 			this.grabPoint = this.circlePoint(this.position);
-			this.drawDial({x:0, y:0}, 100);
+            this.grabRadius = (100);
+
+			this.drawDial({x:0, y:0});
 		}
 	};
 
@@ -92,88 +100,28 @@ RotaryDial.prototype.setStep = function (step) {
     this.digits = step;
 };
 
-RotaryDial.prototype.drawDial = function (center, radius) {
-    // console.log("DrawDial: rotation = " + this.grabPoint.rotation);
-    this.gMoving.clearRect(0,0,this.canvasWidth,this.canvasHeight);
-    var lcenter = this.toLocal(center);
-    this.gMoving.beginPath();
-    var startArc = (Math.PI*2) - this.minPosition;
-    var endArc = (Math.PI*2) - this.maxPosition
+RotaryDial.prototype.drawDial = function (center) {
 
-    // Dial Nob and Groove
-    var grooveWidth = 7
-    this.gMoving.arc(lcenter.x, lcenter.y, this.scale*radius*.75, startArc, endArc, false);
-    this.gMoving.strokeStyle = "rgb(120,120,120)";
-    this.gMoving.lineWidth = 5;
-    //this.gMoving.fillStyle = "rgb(120,120,120)";
-    this.gMoving.stroke();
-		
-    this.gMoving.beginPath();
-    this.gMoving.arc(lcenter.x, lcenter.y, this.scale*radius*.75 +5, 0, Math.PI*2, false);
-    this.gMoving.strokeStyle = "rgb(120,120,120)";
-    this.gMoving.lineWidth = .5;
-    this.gMoving.stroke();
-		
-    this.gMoving.beginPath();
-    this.gMoving.lineWidth = 1;
-    this.gMoving.strokeStyle = "rgb(50,50,50)";
-    this.gMoving.arc(lcenter.x, lcenter.y, this.scale*radius*.75 ,0, Math.PI*2, false);
-    this.gMoving.fillStyle = "rgb(220,220,220)";
-    this.gMoving.fill();
-    this.gMoving.stroke();
-		
-    // Grab Button and radial line
-    this.gMoving.beginPath();
-    var grabCenter = this.toLocal(this.grabPoint);
-    this.gMoving.beginPath();
-    this.gMoving.moveTo (this.toLocal({x:0,y:0}).x, this.toLocal({x:0,y:0}).y);
-    this.gMoving.lineTo (grabCenter.x , grabCenter.y);
-    this.gMoving.lineWidth = 1;
-    this.strokeStyle = "black";
-    this.gMoving.stroke();
-    this.gMoving.beginPath();
-    var nobRadius = (radius/4)
-    this.grabRadius = (radius/4);
-    this.gMoving.arc(grabCenter.x, grabCenter.y, Math.min(Math.max(this.scale*nobRadius,10),30), Math.PI*2, false);
-    if (this.dialGrabbed) {
-        this.gMoving.fillStyle = "rgb(120,195,255)";
-    }
-    else {
-        this.gMoving.fillStyle = "rgb(200,200,200)";
-    }
-    this.gMoving.fill();
-    this.gMoving.stroke();	
-		
-    // Cap
-    this.gMoving.beginPath();
-    this.gMoving.lineWidth = 1;
-    this.gMoving.strokeStyle = "rgb(50,50,50)";
-    this.gMoving.arc(lcenter.x, lcenter.y, this.scale*radius*.125 ,0, Math.PI*2, false);
-    this.gMoving.fillStyle = "rgb(50,50,50)";
-    this.gMoving.fill();
-    this.gMoving.stroke();
-	
-	// text
-	this.gMoving.font="12px Arial";
-	this.gMoving.fillStyle = "black";
-	var text ="" + this.value;
-	var metrics = this.gMoving.measureText(text);
-    var offset = metrics.width/2;
-	this.gMoving.fillText(text, lcenter.x-offset, lcenter.y+0.2*this.height);
-	
-	// this.gMoving.fillStyle = "white";
-	// this.gMoving.font = "" + Math.round(this.size)/10 + "px Arial";
-	// text = this.title;
-	// metrics = this.gMoving.measureText(text);
-	// offset = metrics.width/2;
-	// this.gMoving.fillText(text, lcenter.x-offset, this.height-10);
+    var lcenter = this.toLocal(center);
+    var context = this.gMoving;
+    var x = lcenter.x;
+    var y = lcenter.y;
+    var width = this.size;
+    var height = this.size;
+    var rotation = -this.rotation+(Math.PI/2);
+
+    context.translate(x, y);
+    context.rotate(rotation);
+    context.drawImage(this.dialImage, -width / 2, -height / 2, width, height);
+    context.rotate(-rotation);
+    context.translate(-x, -y);
 };
 	
 	
 RotaryDial.prototype.canvasClick = function (oevent) {	
     // console.log ("Canvas Clicked at (" + event.offsetX + "," + event.offsetY + ")");
     this.dialGrabbed = false;
-    this.drawDial({x:0, y:0}, 100);
+    this.drawDial({x:0, y:0});
     if (this.doChanged != null) this.doChanged(this);
 };
 	
@@ -193,7 +141,7 @@ RotaryDial.prototype.mouseMove= function(x,y) {
     if (this.grabDial(this.mouseDown)) {
         // console.log("Grabbing dial...");
         this.grabPoint = this.moveGrabPoint(this.mouseDown);
-        this.drawDial({x:0, y:0}, 100);
+        this.drawDial({x:0, y:0});
     }
 };
 
@@ -202,7 +150,7 @@ RotaryDial.prototype.canvasTouchDrag = function (event) {
 		var dx = this.mouseDown.x - event.changedTouches[0].pageX+this.canvasMoving.offsetLeft;
 		var dy = this.mouseDown.y - event.changedTouches[0].pageY+this.canvasMoving.offsetTop;
         this.moveDial(-dx,-dy);
-        this.drawDial({x:0, y:0}, 100);
+        this.drawDial({x:0, y:0});
     }
 	event.preventDefault();
 };
@@ -212,27 +160,27 @@ RotaryDial.prototype.canvasMouseDrag = function (event) {
 		var dx = this.mouseDown.x - event.pageX+this.canvasMoving.offsetLeft;
 		var dy = this.mouseDown.y - event.pageY+this.canvasMoving.offsetTop;
         this.moveDial(-dx,-dy);
-        this.drawDial({x:0, y:0}, 100);
+        this.drawDial({x:0, y:0});
     }
 };
 
 
 	
 RotaryDial.prototype.moveGrabPoint = function (mousePoint) {
-    var rotation  = this.findAngle(this.toLocal({x:0,y:0}),mousePoint);
-    var newGrabPoint = this.circlePoint(rotation);
+    this.rotation  = this.findAngle(this.toLocal({x:0,y:0}),mousePoint);
+    var newGrabPoint = this.circlePoint(this.rotation);
     var movement = this.getMovement(this.grabPoint, newGrabPoint);
-    var normalized = (this.minPosition - rotation + (Math.PI*2))%(Math.PI*2);
+    var normalized = (this.minPosition - this.rotation + (Math.PI*2))%(Math.PI*2);
     if (normalized > this.dialRange) { // invalid range
         if (movement.direction == 1) {
-            rotation = this.maxPosition;
+            this.rotation = this.maxPosition;
         }
         else  { // counterclockwise
-            rotation = this.minPosition;
+            this.rotation = this.minPosition;
         }
-        newGrabPoint = this.circlePoint(rotation);
+        newGrabPoint = this.circlePoint(this.rotation);
     }
-    newGrabPoint.value = this.dialValue(rotation);
+    newGrabPoint.value = this.dialValue(this.rotation);
     return newGrabPoint;
 };
 	

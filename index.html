@@ -25,25 +25,25 @@
 			<div id = "speedControls" style = "float:left; text-align: center">
 				<div style = "float:left">
 					<div id = "masterSpeed"></div>
-					<div style = "margin-top: -20px">Master Speed</div>
+					<div style = "margin-top: -10px">Master Speed</div>
 				</div>
 				<div style = "float:left">
 					<div id = "arm2Speed"></div>
-					<div style = "margin-top: -20px">Arm 2 Speed</div>
+					<div style = "margin-top: -10px">Arm 2 Speed</div>
 				</div>
 				<div style = "float:left">
 					<div id = "arm3Speed"></div>
-					<div style = "margin-top: -20px">Arm 3 Speed</div>
+					<div style = "margin-top: -10px">Arm 3 Speed</div>
 				</div>
 			<div>
 			<div id = "lengthControls" style = "float:left">
 				<div style = "float:left">
 					<div id = "arm2Length"></div>
-					<div style = "margin-top: -20px">Arm 2 Length</div>
+					<div style = "margin-top: -10px">Arm 2 Length</div>
 				</div>
 				<div style = "float:left">
 					<div id = "arm3Length"></div>
-					<div style = "margin-top: -20px">Arm 3 Length</div>
+					<div style = "margin-top: -10px">Arm 3 Length</div>
 				</div>
 			<div>
 			<div id = "options" style = "margin-left: 40px; margin-top: 30px; float:left">
@@ -72,7 +72,7 @@
 		</div>
     </body>
     <script>
-    	var dialSize = 175;
+    	var dialSize = 150;
     	var masterSpeed = new RotaryDial("Drawing Speed","masterSpeed", "speedDial", 1, 500, 0, dialSize, Spirograph.dialChanging.bind(Spirograph),null);
 		var arm2Speed = new RotaryDial("Arm 2 Speed","arm2Speed","arm2SpeedDial",-40, 40, 0, dialSize, Spirograph.dialChanging.bind(Spirograph),null);
 		var arm3Speed = new RotaryDial("Arm 3 Speed", "arm3Speed","arm3SpeedDial", -40, 40, 0, dialSize, Spirograph.dialChanging.bind(Spirograph),null);
