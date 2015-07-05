@@ -31,7 +31,9 @@ body {
     font-size: 11pt;
     font-family: "Segoe WP";
     letter-spacing: 0.02em;
-    background-color: #999999;
+    background-color: #ffffff;
+    background-image: url('../images/metal-textures-4.jpg');
+    background-size: cover;
     color: #000000;
     margin-left: 0px;
 }
@@ -42,6 +44,12 @@ body {
 
 #app-title {
     font-size: 24pt;
+}
+
+select {
+    border-radius: 4px;
+    border: none;
+    background-color: gray;
 }
 
 
