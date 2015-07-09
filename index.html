@@ -30,25 +30,70 @@
 		<div id = "controlPanel">
 			<div id = "speedControls" style = "float:left; text-align: center">
 				<div style = "float:left">
-					<div id = "masterSpeed"></div>
+					<div id = "masterSpeed">
+						<div class = 'lcd'>
+							<div class = 'lcd-background'>
+								<div class = 'lcd-output'>888.888</div>
+							</div>
+							<div class = 'lcd-front'>
+								<div id = 'masterSpeedValue' class = 'lcd-output'></div>
+							</div>
+						</div>
+					</div>
 					<div style = "margin-top: -10px">Master Speed</div>
 				</div>
 				<div style = "float:left">
-					<div id = "arm2Speed"></div>
+					<div id = "arm2Speed">
+						<div class = 'lcd'>
+							<div class = 'lcd-background'>
+								<div class = 'lcd-output'>888.888</div>
+							</div>
+							<div class = 'lcd-front'>
+								<div id = 'arm2SpeedValue' class = 'lcd-output'></div>
+							</div>
+						</div>
+					</div>
 					<div style = "margin-top: -10px">Arm 2 Speed</div>
 				</div>
 				<div style = "float:left">
-					<div id = "arm3Speed"></div>
+					<div id = "arm3Speed">
+						<div class = 'lcd'>
+							<div class = 'lcd-background'>
+								<div class = 'lcd-output'>888.888</div>
+							</div>
+							<div class = 'lcd-front'>
+								<div id = 'arm3SpeedValue' class = 'lcd-output'></div>
+							</div>
+						</div>
+					</div>
 					<div style = "margin-top: -10px">Arm 3 Speed</div>
 				</div>
 			<div>
 			<div id = "lengthControls" style = "float:left">
 				<div style = "float:left">
-					<div id = "arm2Length"></div>
+					<div id = "arm2Length">
+						<div class = 'lcd'>
+							<div class = 'lcd-background'>
+								<div class = 'lcd-output'>888.888</div>
+							</div>
+							<div class = 'lcd-front'>
+								<div id = 'arm2LengthValue' class = 'lcd-output'></div>
+							</div>
+						</div>
+					</div>
 					<div style = "margin-top: -10px">Arm 2 Length</div>
 				</div>
 				<div style = "float:left">
-					<div id = "arm3Length"></div>
+					<div id = "arm3Length">
+						<div class = 'lcd'>
+							<div class = 'lcd-background'>
+								<div class = 'lcd-output'>888.888</div>
+							</div>
+							<div class = 'lcd-front'>
+								<div id = 'arm3LengthValue' class = 'lcd-output'></div>
+							</div>
+						</div>
+					</div>
 					<div style = "margin-top: -10px">Arm 3 Length</div>
 				</div>
 			<div>
@@ -75,12 +120,18 @@
 		<div>
     </body>
     <script>
+    	var setValue = function (valueDiv) {
+    		return function (object) {
+ 	    		document.getElementById(valueDiv).innerHTML = object.value;
+	    		Spirograph.dialChanging(object)
+    		}.bind(Spirograph)   			
+    	}
     	var dialSize = 150;
-    	var masterSpeed = new RotaryDial("Drawing Speed","masterSpeed", "speedDial", 1, 500, 0, dialSize, Spirograph.dialChanging.bind(Spirograph),null);
-		var arm2Speed = new RotaryDial("Arm 2 Speed","arm2Speed","arm2SpeedDial",-40, 40, 0, dialSize, Spirograph.dialChanging.bind(Spirograph),null);
-		var arm3Speed = new RotaryDial("Arm 3 Speed", "arm3Speed","arm3SpeedDial", -40, 40, 0, dialSize, Spirograph.dialChanging.bind(Spirograph),null);
-		var arm2Length = new RotaryDial("Arm 2 Length", "arm2Length","arm2LengthDial" ,0, 4, 2,dialSize, Spirograph.dialChanging.bind(Spirograph), null);
-		var arm3Length = new RotaryDial("Arm 3 Length", "arm3Length","arm3LengthDial", 0, 4, 2,dialSize, Spirograph.dialChanging.bind(Spirograph),null);
+    	var masterSpeed = new RotaryDial("Drawing Speed","masterSpeed", "speedDial", 1, 500, 0, dialSize, setValue('masterSpeedValue'),null);
+		var arm2Speed = new RotaryDial("Arm 2 Speed","arm2Speed","arm2SpeedDial",-40, 40, 0, dialSize, setValue('arm2SpeedValue'),null);
+		var arm3Speed = new RotaryDial("Arm 3 Speed", "arm3Speed","arm3SpeedDial", -40, 40, 0, dialSize, setValue('arm3SpeedValue'),null);
+		var arm2Length = new RotaryDial("Arm 2 Length", "arm2Length","arm2LengthDial" ,0, 4, 2,dialSize, setValue('arm2LengthValue'), null);
+		var arm3Length = new RotaryDial("Arm 3 Length", "arm3Length","arm3LengthDial", 0, 4, 2,dialSize, setValue('arm3LengthValue'),null);
 		Spirograph.create("canvasContainer", 400, 400);
 
 		var setComplexity = function (complexity) {
