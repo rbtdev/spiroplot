@@ -90,25 +90,25 @@
     	}
     	var dialSize = 150;
      	var masterSpeedDisplay = new LCD('masterSpeedDisplay');
-    	new RotaryDial("masterSpeedDial", 1, 500, 0, dialSize, setValue(masterSpeedDisplay),null, 100);
+    	var masterSpeedDial = new RotaryDial("masterSpeedDial", 1, 500, 0, dialSize, setValue(masterSpeedDisplay),null, 100);
 
     	var arm2SpeedDisplay = new LCD('arm2SpeedDisplay');
-		new RotaryDial("arm2SpeedDial",-40, 40, 0, dialSize, setValue(arm2SpeedDisplay),null, -14);
+		var arm2SpeedDial = new RotaryDial("arm2SpeedDial",-40, 40, 0, dialSize, setValue(arm2SpeedDisplay),null, -14);
 
     	var arm3SpeedDisplay = new LCD('arm3SpeedDisplay');
-		new RotaryDial("arm3SpeedDial", -40, 40, 0, dialSize, setValue(arm3SpeedDisplay),null, 10);
+		var arm3SpeedDial = new RotaryDial("arm3SpeedDial", -40, 40, 0, dialSize, setValue(arm3SpeedDisplay),null, 10);
  
     	var arm2LengthDisplay = new LCD('arm2LengthDisplay');
-		new RotaryDial("arm2LengthDial" ,0, 4, 2,dialSize, setValue(arm2LengthDisplay), null, 1);
+		var arm2LengthDial = new RotaryDial("arm2LengthDial" ,0, 4, 2,dialSize, setValue(arm2LengthDisplay), null, 1);
 
     	var arm3LengthDisplay = new LCD('arm3LengthDisplay');
-		new RotaryDial("arm3LengthDial", 0, 4, 2,dialSize, setValue(arm3LengthDisplay),null, 2);
+		var arm3LengthDial = new RotaryDial("arm3LengthDial", 0, 4, 2,dialSize, setValue(arm3LengthDisplay),null, 2);
 
 		Spirograph.create("canvasContainer", 400, 400);
 
 		var setComplexity = function (complexity) {
-			arm2Speed.setStep(complexity);
-			arm3Speed.setStep(complexity);
+			arm2SpeedDial.setStep(complexity);
+			arm3SpeedDial.setStep(complexity);
 		};
         //Spirograph.start();
     </script>
