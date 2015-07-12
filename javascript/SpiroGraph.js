@@ -48,13 +48,12 @@ var Spirograph = {
 	},
 
 	dialChanging: function (object) {
-		
 		// console.log("dial Changed:" + value);
 		var target;
 		var restart = false;
 		var value;
 		switch (object.name) {
-			case "speedDial": 
+			case "masterSpeedDial": 
 				this.setMasterSpeed(object.value);
 				restart = false;
 			break;

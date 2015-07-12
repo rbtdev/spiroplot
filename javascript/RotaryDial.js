@@ -1,18 +1,17 @@
 
 
-function RotaryDial(title,parent,name, min,max, step, size, onChanging, onChanged)
+function RotaryDial(parent, min,max, step, size, onChanging, onChanged, initialValue)
 {
     var _this = this;
+    this.name = parent;
     this.dialImage = new Image();
     this.dialImage.onload = function () {
-        _this.create(title, parent, name, min, max, step, size, onChanging, onChanged);
+        _this.create(parent, min, max, step, size, onChanging, onChanged, initialValue);
     }
     this.dialImage.src = "./images/knob.png";
 };
 
-RotaryDial.prototype.create = function(title,parent,name,min, max, step,size,onChanging, onChanged) {
-		this.title = title;
-		this.name = name;
+RotaryDial.prototype.create = function(parent,min, max, step,size,onChanging, onChanged, initialValue) {
 		this.minimum = min;
 		this.maximum = max;
 		this.size = size;
@@ -21,9 +20,12 @@ RotaryDial.prototype.create = function(title,parent,name,min, max, step,size,onC
 		this.parentDiv = document.getElementById(parent);
 		this.doChanging = onChanging;
 		this.doChanged = onChanged;
-        
 		this.initialized = false;
+        this.initialValue = initialValue;
 		this.initCanvas();
+        if (this.doChanging) {
+            this.doChanging(this);
+        }
 	};
 	
 RotaryDial.prototype.initCanvas = function () {
@@ -65,7 +67,8 @@ RotaryDial.prototype.initCanvas = function () {
 			if (this.dialRange == 0) {
 				this.dialRange = Math.PI*2;
 			}
-			this.value = this.dialValue(this.position);
+            this.rotation = this.dialRotation(this.initialValue);
+			this.value = this.dialValue(this.rotation);
 			// console.log("Initial Value: ", this.value);
 			this.width = this.size;
 			this.height = this.size;
@@ -258,6 +261,16 @@ RotaryDial.prototype.dialValue = function (rotation) {
         scaled = parseFloat(scaled.toFixed(this.digits));
     }
     return scaled;
+};
+
+RotaryDial.prototype.dialRotation = function (value) {
+    if (value > this.maximum) value = this.maximum;
+    if (value < this.minimum) value = this.minimum;
+    var valueRange = this.maximum-this.minimum;
+    var normalized = ((value-this.minimum)/valueRange)*this.dialRange;
+    var rotation = this.minPosition - normalized;
+    console.log("Dial Rotation = " + rotation)
+    return rotation;
 };
 	
 RotaryDial.prototype.setBounds =  function (xMin, xMax, yMin, yMax, zoomLevel) {

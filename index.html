@@ -7,10 +7,12 @@
         <link rel="stylesheet" type="text/css" href="./css/spirograph.css" />
         <link rel="stylesheet" type="text/css" href="./css/SpiroPlotter.css" />
 		<link rel="stylesheet" type="text/css" href="./css/RotaryDial.css" />
+		<link rel="stylesheet" type="text/css" href="./css/lcdDisplay.css" />
         <script  src="./javascript/SpiroGraph.js"></script>
         <script  src="./javascript/SpiroPlotter.js"></script>
         <script  src="./javascript/SpiroPlotterArms.js"></script>
 		<script  src="./javascript/RotaryDial.js"></script>
+		<script	 src="./javascript/lcd.js"></script>
  
         <title>Spiro Plotter</title>
     </head>
@@ -29,72 +31,32 @@
 		</div>
 		<div id = "controlPanel">
 			<div id = "speedControls" style = "float:left; text-align: center">
-				<div style = "float:left">
-					<div id = "masterSpeed">
-						<div class = 'lcd'>
-							<div class = 'lcd-background'>
-								<div class = 'lcd-output'>888.888</div>
-							</div>
-							<div class = 'lcd-front'>
-								<div id = 'masterSpeedValue' class = 'lcd-output'></div>
-							</div>
-						</div>
-					</div>
-					<div style = "margin-top: -10px">Master Speed</div>
+				<div class = "dialPanel">
+					<div id = "masterSpeedDisplay"></div>
+					<div id = "masterSpeedDial"></div>
+					<div class = 'label'>Master Speed</div>
 				</div>
-				<div style = "float:left">
-					<div id = "arm2Speed">
-						<div class = 'lcd'>
-							<div class = 'lcd-background'>
-								<div class = 'lcd-output'>888.888</div>
-							</div>
-							<div class = 'lcd-front'>
-								<div id = 'arm2SpeedValue' class = 'lcd-output'></div>
-							</div>
-						</div>
-					</div>
-					<div style = "margin-top: -10px">Arm 2 Speed</div>
+				<div class = "dialPanel">
+					<div id = "arm2SpeedDisplay"></div>
+					<div id = "arm2SpeedDial"></div>
+					<div class = 'label'>Arm 2 Speed</div>
 				</div>
-				<div style = "float:left">
-					<div id = "arm3Speed">
-						<div class = 'lcd'>
-							<div class = 'lcd-background'>
-								<div class = 'lcd-output'>888.888</div>
-							</div>
-							<div class = 'lcd-front'>
-								<div id = 'arm3SpeedValue' class = 'lcd-output'></div>
-							</div>
-						</div>
-					</div>
-					<div style = "margin-top: -10px">Arm 3 Speed</div>
+				<div class = "dialPanel">
+					<div id = "arm3SpeedDisplay"></div>
+					<div id = "arm3SpeedDial"></div>
+					<div class = 'label'>Arm 3 Speed</div>
 				</div>
 			<div>
 			<div id = "lengthControls" style = "float:left">
-				<div style = "float:left">
-					<div id = "arm2Length">
-						<div class = 'lcd'>
-							<div class = 'lcd-background'>
-								<div class = 'lcd-output'>888.888</div>
-							</div>
-							<div class = 'lcd-front'>
-								<div id = 'arm2LengthValue' class = 'lcd-output'></div>
-							</div>
-						</div>
-					</div>
-					<div style = "margin-top: -10px">Arm 2 Length</div>
+				<div class = "dialPanel">
+					<div id = "arm2LengthDisplay"></div>
+					<div id = "arm2LengthDial"></div>
+					<div class = 'label'>Arm 2 Length</div>
 				</div>
-				<div style = "float:left">
-					<div id = "arm3Length">
-						<div class = 'lcd'>
-							<div class = 'lcd-background'>
-								<div class = 'lcd-output'>888.888</div>
-							</div>
-							<div class = 'lcd-front'>
-								<div id = 'arm3LengthValue' class = 'lcd-output'></div>
-							</div>
-						</div>
-					</div>
-					<div style = "margin-top: -10px">Arm 3 Length</div>
+				<div class = "dialPanel">
+					<div id = "arm3LengthDisplay"></div>
+					<div id = "arm3LengthDial"></div>
+					<div class = 'label'>Arm 3 Length</div>
 				</div>
 			<div>
 
@@ -120,18 +82,28 @@
 		<div>
     </body>
     <script>
-    	var setValue = function (valueDiv) {
+    	var setValue = function (display) {
     		return function (object) {
- 	    		document.getElementById(valueDiv).innerHTML = object.value;
-	    		Spirograph.dialChanging(object)
+ 	    		display.setValue(object.value);
+	    		this.dialChanging(object)
     		}.bind(Spirograph)   			
     	}
     	var dialSize = 150;
-    	var masterSpeed = new RotaryDial("Drawing Speed","masterSpeed", "speedDial", 1, 500, 0, dialSize, setValue('masterSpeedValue'),null);
-		var arm2Speed = new RotaryDial("Arm 2 Speed","arm2Speed","arm2SpeedDial",-40, 40, 0, dialSize, setValue('arm2SpeedValue'),null);
-		var arm3Speed = new RotaryDial("Arm 3 Speed", "arm3Speed","arm3SpeedDial", -40, 40, 0, dialSize, setValue('arm3SpeedValue'),null);
-		var arm2Length = new RotaryDial("Arm 2 Length", "arm2Length","arm2LengthDial" ,0, 4, 2,dialSize, setValue('arm2LengthValue'), null);
-		var arm3Length = new RotaryDial("Arm 3 Length", "arm3Length","arm3LengthDial", 0, 4, 2,dialSize, setValue('arm3LengthValue'),null);
+     	var masterSpeedDisplay = new LCD('masterSpeedDisplay');
+    	new RotaryDial("masterSpeedDial", 1, 500, 0, dialSize, setValue(masterSpeedDisplay),null, 100);
+
+    	var arm2SpeedDisplay = new LCD('arm2SpeedDisplay');
+		new RotaryDial("arm2SpeedDial",-40, 40, 0, dialSize, setValue(arm2SpeedDisplay),null, -14);
+
+    	var arm3SpeedDisplay = new LCD('arm3SpeedDisplay');
+		new RotaryDial("arm3SpeedDial", -40, 40, 0, dialSize, setValue(arm3SpeedDisplay),null, 10);
+ 
+    	var arm2LengthDisplay = new LCD('arm2LengthDisplay');
+		new RotaryDial("arm2LengthDial" ,0, 4, 2,dialSize, setValue(arm2LengthDisplay), null, 1);
+
+    	var arm3LengthDisplay = new LCD('arm3LengthDisplay');
+		new RotaryDial("arm3LengthDial", 0, 4, 2,dialSize, setValue(arm3LengthDisplay),null, 2);
+
 		Spirograph.create("canvasContainer", 400, 400);
 
 		var setComplexity = function (complexity) {
