@@ -53,36 +53,51 @@
 					<div id = "arm3LengthDial"></div>
 					<div class = 'label'>Arm 3 Length</div>
 				</div>
+				<div id = "options" style = "text-align: left; float: left; margin-left: 40px; margin-top: 30px;">
+					<div>
+						<span>Pen Type</span>
+						<ul>
+							<li><input type="radio" name="pen" value="pencil" onclick = Spirograph.selectPenType(this)>Pencil</li>
+							<li><input type="radio" name="pen" value="round" onclick = Spirograph.selectPenType(this)>Round</li>
+							<li><input type="radio" name="pen" value="calligraphy" onclick = Spirograph.selectPenType(this)>Calligraphy</li>
+						</ul>
+					</div>
+					<div>
+						<span>Color</span>
+						<ul>
+							<li><input type="radio" name="color" value="rainbow" onclick = Spirograph.selectPenColor(this)>Ranbow</li>
+							<li><input type="radio" name="color" value="black" onclick = Spirograph.selectPenColor(this)>Black</li>
+						</ul>
+					</div>
+					<div>
+						<span>Complexity</span>
+						<ul>
+							<li><input type="radio" name="complexity" value=0 onclick = setComplexity(this.value)>Low</li>
+							<li><input type="radio" name="complexity" value=1 onclick = setComplexity(this.value)>Medium</li>
+							<li><input type="radio" name="complexity" value=2 onclick = setComplexity(this.value)>High</li>
+						</ul>
+					</div>
+				<div>
 			<div>
 
 		</div>
-		<div id = "options" style = "float: left; margin-left: 40px; margin-top: 30px;">
-			Pen Type
-			<select onchange= Spirograph.selectPenType(this)>
-				<option value="pencil">Pencil</option>
-				<option value="round" selected>Brush</option>
-				<option value="angle">Calligraphy</option>
-			</select>
-			Color
-			<select onchange= Spirograph.selectPenColor(this)>
-				<option value="gradient" selected>Rainbow</option>
-				<option value="black">Black</option>
-			</select>
-			Complexity
-			<select onchange= setComplexity(this.value)>
-				<option value=0 selected>Low</option>
-				<option value=1>Medium</option>
-				<option value=2>High</option>
-			</select>
-		<div>
+		
     </body>
     <script>
+    	var setComplexity = function (complexity) {
+			arm2SpeedDial.setStep(complexity);
+			arm3SpeedDial.setStep(complexity);
+		};
+
     	var setValue = function (display) {
     		return function (object) {
  	    		display.setValue(object.value);
 	    		this.dialChanging(object)
     		}.bind(Spirograph)   			
     	}
+
+    	Spirograph.renderInto("spirograph");
+
     	var dialSize = 150;
      	var masterSpeedDisplay = new LCD('masterSpeedDisplay');
     	var masterSpeedDial = new RotaryDial("masterSpeedDial", 1, 500, 0, dialSize, setValue(masterSpeedDisplay),null, 100);
@@ -98,13 +113,5 @@
 
     	var arm3LengthDisplay = new LCD('arm3LengthDisplay');
 		var arm3LengthDial = new RotaryDial("arm3LengthDial", 0, 4, 2,dialSize, setValue(arm3LengthDisplay),null, 2);
-
-		Spirograph.renderInto("spirograph");
-
-		var setComplexity = function (complexity) {
-			arm2SpeedDial.setStep(complexity);
-			arm3SpeedDial.setStep(complexity);
-		};
-        //Spirograph.start();
     </script>
 </html>
