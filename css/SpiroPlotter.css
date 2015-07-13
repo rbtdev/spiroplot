@@ -1,12 +1,3 @@
-
-#canvasFrame {
-    position:absolute;
-    left: 0; top: 0;
-	border:  solid 1px black;
-	z-index:0;
-	background: black;
-}
-
 #canvasBack {
 	position:absolute;
     left: 0; top: 0;

@@ -7,7 +7,7 @@
 
 var SpiroPlotter = {
 	
-    create: function (width, height, onReady, onDragging, onDone) {
+    create: function (container, width, height, onReady, onDragging, onDone) {
         this.width = width;
         this.height = height;
         this.doDragging = onDragging.bind(this);
@@ -18,55 +18,52 @@ var SpiroPlotter = {
 		this.maxTurns = 100;
 		this.initialized = false;
 		this.frameDelay = 1000 / 30;
-		this.initCanvas();
+		this.initCanvas(container);
 	},
 	
-	initCanvas: function () {
+	initCanvas: function (container) {
 		// console.log("Initializing canvas...");
-	    this.canvasShape = document.getElementById('canvasShape');
-		this.canvasBack = document.getElementById('canvasBack');
-		this.canvasMoving = document.getElementById('canvasMoving');
-		//this.canvasFrame = document.getElementById('canvasFrame');
+		this.canvasShape = document.createElement('canvas');
+		this.canvasShape.setAttribute("id","canvasShape");
+		this.canvasBack = document.createElement('canvas');
+		this.canvasBack.setAttribute("id","canvasBack");
+		this.canvasMoving = document.createElement('canvas');
+		this.canvasMoving.setAttribute("id","canvasMoving");
+		container.appendChild(this.canvasShape);
+		container.appendChild(this.canvasMoving);
+		container.appendChild(this.canvasBack);
+		this.canvasShape.width = this.width;
+		this.canvasShape.height = this.height;
+		this.canvasMoving.width = this.width;
+		this.canvasMoving.height = this.height;
+		this.canvasBack.width = this.width;
+		this.canvasBack.height = this.height;
+		this.canvasWidth = this.canvasShape.width;
+		this.canvasHeight = this.canvasShape.height;
+		this.gShape = this.canvasShape.getContext('2d');
+		this.gMoving = this.canvasMoving.getContext('2d');
+		this.gBack = this.canvasBack.getContext('2d');
+        // Fill background with gradient
+		//var grd = this.gBack.createRadialGradient(this.width / 2, this.height / 2, 0.4 * this.width, this.width / 2, this.height / 2, 0.6 * this.width);
+		//var grd = this.gBack.createRadialGradient(this.width / 2, this.height / 2, 0.4 * this.width, this.width / 2, this.height / 2,this.width);
+		var grd = this.gBack.createRadialGradient(this.width / 2, this.height / 2, 0.4 * this.width, this.width / 2, this.height / 2,this.width);
+		grd.addColorStop(0, "#EDE2B2");
+		grd.addColorStop(1, "#BDA126");
 		
-		if (!this.canvasShape || !this.canvasBack || !this.canvasMoving) {
-			setTimeout(this.initCanvas.bind(this), 100);
-		}
-		else {
-			//this.canvasFrame.width = this.width;
-			//this.canvasFrame.height = this.height;
-			this.canvasShape.width = this.width;
-			this.canvasShape.height = this.height;
-			this.canvasMoving.width = this.width;
-			this.canvasMoving.height = this.height;
-			this.canvasBack.width = this.width;
-			this.canvasBack.height = this.height;
-			this.canvasWidth = this.canvasShape.width;
-			this.canvasHeight = this.canvasShape.height;
-			this.gShape = this.canvasShape.getContext('2d');
-			this.gMoving = this.canvasMoving.getContext('2d');
-			this.gBack = this.canvasBack.getContext('2d');
-            // Fill background with gradient
-			//var grd = this.gBack.createRadialGradient(this.width / 2, this.height / 2, 0.4 * this.width, this.width / 2, this.height / 2, 0.6 * this.width);
-			//var grd = this.gBack.createRadialGradient(this.width / 2, this.height / 2, 0.4 * this.width, this.width / 2, this.height / 2,this.width);
-			var grd = this.gBack.createRadialGradient(this.width / 2, this.height / 2, 0.4 * this.width, this.width / 2, this.height / 2,this.width);
-			grd.addColorStop(0, "#EDE2B2");
-			grd.addColorStop(1, "#BDA126");
-			
-			//grd.addColorStop(0, "#AFC3C7");
-			//grd.addColorStop(1, "#222222");
+		//grd.addColorStop(0, "#AFC3C7");
+		//grd.addColorStop(1, "#222222");
 
-			this.gBack.fillStyle = grd;
-			this.gBack.fillRect(0, 0, this.width, this.height);
+		this.gBack.fillStyle = grd;
+		this.gBack.fillRect(0, 0, this.width, this.height);
 
-	
-            
 
-			//this.canvasBack.show();
-			//this.canvasShape.show();
-			//this.canvasMoving.show();	
-			this.initialized = true;
-			this.dragging = {arm:-1, distance:0};
-		}
+        
+
+		//this.canvasBack.show();
+		//this.canvasShape.show();
+		//this.canvasMoving.show();	
+		this.initialized = true;
+		this.dragging = {arm:-1, distance:0};
 	},
 	
 	

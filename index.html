@@ -18,12 +18,7 @@
     </head>
     <body>
     	<div style = "float: left">
-	        <div id ="canvasContainer" style = "margin: 20px; float:left">
-	            <canvas id ="canvasShape"> </canvas>
-	            <canvas id ="canvasMoving"></canvas>
-	            <canvas id ="canvasBack"></canvas>
-	            <!--<canvas id ="canvasFrame"></canvas> -->
-	        </div>
+	        <div id ="spirograph"></div>
 	        <div  style = "clear:both width: 100%; text-align: center; margin:auto">
 				<button style = "width: 100px; height: 50px", onclick = Spirograph.start()>Start</button>
 				<button style = "width: 100px; height: 50px", onclick = Spirograph.saveImage()>Save</button>
@@ -93,10 +88,10 @@
     	var masterSpeedDial = new RotaryDial("masterSpeedDial", 1, 500, 0, dialSize, setValue(masterSpeedDisplay),null, 100);
 
     	var arm2SpeedDisplay = new LCD('arm2SpeedDisplay');
-		var arm2SpeedDial = new RotaryDial("arm2SpeedDial",-40, 40, 0, dialSize, setValue(arm2SpeedDisplay),null, -14);
+		var arm2SpeedDial = new RotaryDial("arm2SpeedDial",-100, 100, 0, dialSize, setValue(arm2SpeedDisplay),null, -14);
 
     	var arm3SpeedDisplay = new LCD('arm3SpeedDisplay');
-		var arm3SpeedDial = new RotaryDial("arm3SpeedDial", -40, 40, 0, dialSize, setValue(arm3SpeedDisplay),null, 10);
+		var arm3SpeedDial = new RotaryDial("arm3SpeedDial", -100, 100, 0, dialSize, setValue(arm3SpeedDisplay),null, 10);
  
     	var arm2LengthDisplay = new LCD('arm2LengthDisplay');
 		var arm2LengthDial = new RotaryDial("arm2LengthDial" ,0, 4, 2,dialSize, setValue(arm2LengthDisplay), null, 1);
@@ -104,7 +99,7 @@
     	var arm3LengthDisplay = new LCD('arm3LengthDisplay');
 		var arm3LengthDial = new RotaryDial("arm3LengthDial", 0, 4, 2,dialSize, setValue(arm3LengthDisplay),null, 2);
 
-		Spirograph.create("canvasContainer", 400, 400);
+		Spirograph.renderInto("spirograph");
 
 		var setComplexity = function (complexity) {
 			arm2SpeedDial.setStep(complexity);

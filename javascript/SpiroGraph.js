@@ -7,11 +7,10 @@
 
 var Spirograph = {
 
-    create: function (divName, height, width) {
-        this.width = width;
-        this.height = height;
-        document.getElementById(divName).style.width = ""+this.width+"px";
-        document.getElementById(divName).style.height = "" + this.height + "px";
+    renderInto: function (container) {
+    	var container = document.getElementById(container);
+        this.width = container.offsetWidth;
+        this.height = container.offsetHeight;
         this.masterSpeed = 20;
         this.arm2Speed = -6;
         this.arm3Speed = 9.2;
@@ -22,7 +21,7 @@ var Spirograph = {
 		this.penColor = "gradient";
 		this.complexity = 1;
 		this.spiro =  SpiroPlotter;
-        this.spiro.create(this.width, this.height, this.spiroReady, this.dragging, this.spiroDone);
+        this.spiro.create(container, this.width, this.height, this.spiroReady, this.dragging, this.spiroDone);
         this.initialize();
         this.spiroReady();
 	},
