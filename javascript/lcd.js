@@ -1,5 +1,4 @@
-function LCD(container, name)
-{
+function LCD(container, name) {
 	var container = document.getElementById(container);
 	var display = document.createElement('div');
 	display.className = 'lcd';
@@ -29,7 +28,7 @@ function LCD(container, name)
 	// 		"<div id = '" + container +"Value" + "' class = 'lcd-output'></div>" +
 	// 	"</div>" +
 	// "</div>";
-	
+
 };
 LCD.prototype.setValue = function (value) {
 	this.value.innerHTML = value;
